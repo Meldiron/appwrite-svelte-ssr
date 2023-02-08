@@ -1,6 +1,6 @@
 import { Client, Account } from 'appwrite';
 
-export const AppwriteClient = new Client().setEndpoint('http://localhost:5173/v1').setProject('appwriteSvelteSSR');
+export const AppwriteClient = new Client().setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT).setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
 
 const account = new Account(AppwriteClient);
 
