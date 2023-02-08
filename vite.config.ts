@@ -11,7 +11,9 @@ export default defineConfig({
 				configure: (proxy, options) => {
 					proxy.on('proxyRes', (proxyRes, req, _res) => {
 						const headers = proxyRes.rawHeaders.map((h) => {
-							return h.split("domain=.cloud.appwrite.io").join(import.meta.env.PROD ? "domain=appwrite-svelte-ssr.vercel.app" : "domain=localhost");
+							let host = req.headers.host ?? '';
+							host = host.includes(':') ? host.split(':')[0] : host;
+							return h.split("domain=.cloud.appwrite.io").join("domain=" + host);
 						});
 
 						proxyRes.rawHeaders = headers;
